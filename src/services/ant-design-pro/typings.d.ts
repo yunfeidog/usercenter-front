@@ -3,24 +3,19 @@
 
 declare namespace API {
   type CurrentUser = {
-    name?: string;
-    avatar?: string;
-    userid?: string;
-    email?: string;
-    signature?: string;
-    title?: string;
-    group?: string;
-    tags?: { key?: string; label?: string }[];
-    notifyCount?: number;
-    unreadCount?: number;
-    country?: string;
-    access?: string;
-    geographic?: {
-      province?: { label?: string; key?: string };
-      city?: { label?: string; key?: string };
-    };
-    address?: string;
+    id?: number;
+    username?: string;
+    userAccount?: string;
+    avatarUrl?: string;
+    gender?: number;
     phone?: string;
+    email?: string;
+    userStatus?: number;
+    userRole?: number;
+
+    planetCode?: string;
+    createTime?: Date;
+
   };
 
   type LoginResult = {
@@ -28,6 +23,8 @@ declare namespace API {
     type?: string;
     currentAuthority?: string;
   };
+
+  type  RegisterResult = number;
 
   type PageParams = {
     current?: number;
@@ -49,6 +46,18 @@ declare namespace API {
     progress?: number;
   };
 
+  /**
+   * 用于对接口返回的数据进行统一的格式化
+   */
+  type R<T> ={
+    code: number;
+    data: T;
+    message: string;
+    description: string;
+
+  }
+
+
   type RuleList = {
     data?: RuleListItem[];
     /** 列表的内容总数 */
@@ -67,6 +76,19 @@ declare namespace API {
     autoLogin?: boolean;
     type?: string;
   };
+
+  type RegisterParams = {
+    userAccount?: string;
+    userPassword?: string;
+    checkPassword?: string;
+
+    type?: string;
+
+    planetCode?: string;
+
+
+
+  }
 
   type ErrorResponse = {
     /** 业务约定的错误码 */
