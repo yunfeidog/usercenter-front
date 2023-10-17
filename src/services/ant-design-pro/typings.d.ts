@@ -12,7 +12,7 @@ declare namespace API {
     email?: string
     userStatus?: string
     createTime?: string
-    userRole?: string
+    userRole?: number
   };
 
   type LoginResult = {
