@@ -1,7 +1,7 @@
 import { GithubOutlined } from '@ant-design/icons';
 import { DefaultFooter } from '@ant-design/pro-components';
 const Footer: React.FC = () => {
-  const defaultMessage = '蚂蚁集团体验技术部出品';
+  const defaultMessage = 'ikun团队出品，必属精品';
   const currentYear = new Date().getFullYear();
   return (
     <DefaultFooter
@@ -15,14 +15,14 @@ const Footer: React.FC = () => {
         },
         {
           key: 'github',
-          title: <GithubOutlined />,
-          href: 'https://github.com/ant-design/ant-design-pro',
+          title: <><GithubOutlined /> yunfei GitHub </>,
+          href: 'https://github.com/yunfeidog',
           blankTarget: true,
         },
         {
-          key: 'Ant Design',
-          title: 'Ant Design',
-          href: 'https://ant.design',
+          key: 'Blog',
+          title: 'Blog',
+          href: 'https://yunfeidog.github.io/blogv2/',
           blankTarget: true,
         },
       ]}
