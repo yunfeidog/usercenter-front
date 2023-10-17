@@ -12,7 +12,6 @@ import {RequestConfig} from "@@/plugin-request/request";
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/user/login';
 
-
 export const request: RequestConfig = {
   timeout: 1000000,
   // prefix: 'http://localhost:8000',
@@ -32,12 +31,13 @@ export async function getInitialState(): Promise<{
   loading?: boolean;
   fetchUserInfo?: () => Promise<API.CurrentUser | undefined>;
 }> {
+  // 页面刚进入时，获取用户信息
   const fetchUserInfo = async () => {
     try {
       const msg = await queryCurrentUser();
       return msg.data;
     } catch (error) {
-      history.push(loginPath);
+      // history.push(loginPath);
     }
     return undefined;
   };
@@ -67,6 +67,12 @@ export const layout: RunTimeLayoutConfig = ({initialState, setInitialState}) => 
     footerRender: () => <Footer/>,
     onPageChange: () => {
       const {location} = history;
+      const whiteList = ['/user/register', loginPath]
+      // 如果在白名单中，不做任何处理
+      if (whiteList.includes(location.pathname)) {
+        return;
+      }
+
       // 如果没有登录，重定向到 login
       if (!initialState?.currentUser && location.pathname !== loginPath) {
         history.push(loginPath);
