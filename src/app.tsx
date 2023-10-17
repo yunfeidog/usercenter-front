@@ -7,10 +7,15 @@ import type {RunTimeLayoutConfig} from 'umi';
 import {history, Link} from 'umi';
 import defaultSettings from '../config/defaultSettings';
 import {currentUser as queryCurrentUser} from './services/ant-design-pro/api';
-import {RequestConfig} from "@@/plugin-request/request";
+import type {RequestConfig} from "@@/plugin-request/request";
 
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/user/login';
+/**
+ * 无需登录白名单
+ */
+const WHITE_LIST = ['/user/register', loginPath]
+
 
 export const request: RequestConfig = {
   timeout: 1000000,
@@ -34,24 +39,23 @@ export async function getInitialState(): Promise<{
   // 页面刚进入时，获取用户信息
   const fetchUserInfo = async () => {
     try {
-      const msg = await queryCurrentUser();
-      return msg.data;
+      return await queryCurrentUser();
     } catch (error) {
       // history.push(loginPath);
     }
     return undefined;
   };
-  // 如果不是登录页面，执行
-  if (history.location.pathname !== loginPath) {
-    const currentUser = await fetchUserInfo();
+  // 如果是无需登录的页面，不执行
+  if (WHITE_LIST.includes(history.location.pathname)) {
     return {
       fetchUserInfo,
-      currentUser,
       settings: defaultSettings,
     };
   }
+  const currentUser = await fetchUserInfo();
   return {
     fetchUserInfo,
+    currentUser,
     settings: defaultSettings,
   };
 }
@@ -62,14 +66,13 @@ export const layout: RunTimeLayoutConfig = ({initialState, setInitialState}) => 
     rightContentRender: () => <RightContent/>,
     disableContentMargin: false,
     waterMarkProps: {
-      content: initialState?.currentUser?.name,
+      content: initialState?.currentUser?.username,
     },
     footerRender: () => <Footer/>,
     onPageChange: () => {
       const {location} = history;
-      const whiteList = ['/user/register', loginPath]
       // 如果在白名单中，不做任何处理
-      if (whiteList.includes(location.pathname)) {
+      if (WHITE_LIST.includes(location.pathname)) {
         return;
       }
 
