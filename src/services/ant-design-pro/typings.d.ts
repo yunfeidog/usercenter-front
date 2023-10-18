@@ -16,6 +16,13 @@ declare namespace API {
     ikunCode?: string
   };
 
+  type Result<T> = {
+    code: number;
+    data: T;
+    message: string;
+    description: string;
+  }
+
   type LoginResult = {
     status?: string;
     type?: string;
