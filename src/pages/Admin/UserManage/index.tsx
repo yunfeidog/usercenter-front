@@ -47,6 +47,11 @@ const columns: ProColumns<API.CurrentUser>[] = [
     copyable: true,
   },
   {
+    title: 'ikun编号',
+    dataIndex: 'ikunCode',
+    copyable: true,
+  },
+  {
     title: '状态',
     dataIndex: 'userStatus',
   },

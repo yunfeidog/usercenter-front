@@ -112,6 +112,22 @@ const Register: React.FC = () => {
               />
 
 
+              <ProFormText
+                name="ikunCode"
+                fieldProps={{
+                  size: 'large',
+                  prefix: <LockOutlined className={styles.prefixIcon}/>,
+                }}
+                placeholder={'请输入你的ikun编号'}
+                rules={[
+                  {
+                    required: true,
+                    message: 'ikun编号是必填项！',
+                  },
+                ]}
+              />
+
+
             </>
           )}
           <div
