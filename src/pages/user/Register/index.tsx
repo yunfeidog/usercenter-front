@@ -35,10 +35,10 @@ const Register: React.FC = () => {
       } else {
         throw new Error()
       }
-      // 如果失败去设置用户错误信息
     } catch (error: any) {
       const defaultLoginFailureMessage = '注册失败，请重试！';
-      message.error(error.message ?? defaultLoginFailureMessage);
+      const msg = error.message !== "" ? error.message : defaultLoginFailureMessage;
+      message.error(msg);
     }
   };
   return (
