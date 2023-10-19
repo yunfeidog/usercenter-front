@@ -39,7 +39,7 @@ export async function getInitialState(): Promise<{
   // 页面刚进入时，获取用户信息
   const fetchUserInfo = async () => {
     try {
-      return await queryCurrentUser();
+      return await queryCurrentUser() as API.CurrentUser;
     } catch (error) {
       // history.push(loginPath);
     }

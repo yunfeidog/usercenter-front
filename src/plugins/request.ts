@@ -6,12 +6,14 @@ import {extend} from 'umi-request';
 import {message} from "antd";
 import {stringify} from "querystring";
 import {history} from "umi";
+import * as process from "process";
 
 /**
  * 配置request请求时的默认参数
  */
 const request = extend({
   credentials: 'include', // 默认请求是否带上cookie
+  prefix: process.env.NODE_ENV === 'production' ? 'http://121.40.105.246' : undefined
 });
 
 /**
@@ -48,7 +50,7 @@ request.interceptors.response.use(async (response, options): Promise<any> => {
         redirect: location.pathname
       }),
     })
-  }else{
+  } else {
     message.error(res.description)
     return null;
   }
